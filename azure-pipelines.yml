@@ -21,7 +21,7 @@ steps:
   inputs:
     command: publish
     publishRegistry: useFeed
-    publishFeed: NPM_FEED
+    publishFeed: my-npm-feed
     npmAuthenticateFeed: true
   displayName: 'Publish npm package to Azure Artifacts'
 
