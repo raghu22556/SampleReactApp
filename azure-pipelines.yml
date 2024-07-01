@@ -1,0 +1,27 @@
+trigger:
+  branches:
+    include:
+      - master  # Trigger on changes to the master branch
+
+pool:
+  vmImage: 'ubuntu-latest'  # Choose an appropriate agent pool
+
+steps:
+- task: NodeTool@0
+  inputs:
+    versionSpec: '12.x'
+  displayName: 'Install Node.js'
+
+- script: |
+    npm install
+    npm run build
+  displayName: 'Install and build'
+
+- task: Npm@1
+  inputs:
+    command: publish
+    publishRegistry: useFeed
+    publishFeed: NPM_FEED  # Replace with your Azure Artifacts feed name
+    npmAuthenticateFeed: true  # Authenticate npm to access Azure Artifacts feed
+  displayName: 'Publish to Azure Artifacts'
+
